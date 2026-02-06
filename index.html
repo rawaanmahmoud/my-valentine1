@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Valentine</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #ffd6e0, #ff9a9e);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Pacifico', cursive;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    h1 {
+      color: black;
+      font-size: 38px;
+      margin-bottom: 15px;
+    }
+
+    .note {
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      color: black;
+      margin-bottom: 30px;
+    }
+
+    button {
+      padding: 14px 36px;
+      font-size: 20px;
+      border: none;
+      border-radius: 40px;
+      cursor: pointer;
+      font-family: Arial, sans-serif;
+    }
+
+    #yesBtn {
+      background-color: #ff4d6d;
+      color: white;
+      margin-right: 20px;
+    }
+
+    #noBtn {
+      background-color: #222;
+      color: white;
+      position: absolute;
+      left: 55%;
+      top: 60%;
+    }
+
+    #result {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeIn 0.7s ease forwards;
+    }
+
+    .images {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .images img {
+      width: 220px;
+      max-width: 90%;
+      border-radius: 15px;
+    }
+
+    /* Rockets & fireworks */
+    .rocket, .firework, .kiss {
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .rocket {
+      bottom: -40px;
+      font-size: 26px;
+      animation: fly 1.8s linear forwards;
+    }
+
+    .firework {
+      font-size: 28px;
+      animation: explode 1.6s ease-out forwards;
+    }
+
+    .kiss {
+      top: -40px;
+      font-size: 30px;
+      animation: fall 4s linear forwards;
+    }
+
+    @keyframes fly {
+      from { transform: translateY(0); opacity: 1; }
+      to { transform: translateY(-120vh); opacity: 0; }
+    }
+
+    @keyframes explode {
+      0% { transform: scale(0.3); opacity: 1; }
+      70% { transform: scale(2.5); opacity: 1; }
+      100% { transform: scale(3); opacity: 0; }
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.7); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Question -->
+  <div class="container" id="question">
+    <h1>Abdelrahman, will you be my Valentine?</h1>
+    <div class="note">Try clicking "No" if you dare 😌</div>
+    <button id="yesBtn">Yes</button>
+    <button id="noBtn">No</button>
+  </div>
+
+  <!-- Result -->
+  <div class="container" id="result">
+    <div class="images">
+      <!-- غيري اللينكات دي بصورك -->
+      <img src="c:\Users\Rawan\Downloads\WhatsApp Image 2026-02-06 at 9.47.28 AM.jpeg">
+    </div>
+    <h1>yayy love u</h1>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const question = document.getElementById("question");
+    const result = document.getElementById("result");
+
+    // No button runs away
+    noBtn.addEventListener("mouseenter", () => {
+      const maxX = window.innerWidth - noBtn.offsetWidth;
+      const maxY = window.innerHeight - noBtn.offsetHeight;
+
+      noBtn.style.left = Math.random() * maxX + "px";
+      noBtn.style.top = Math.random() * maxY + "px";
+    });
+
+    // Yes button
+    yesBtn.addEventListener("click", () => {
+      question.style.display = "none";
+      result.style.display = "flex";
+
+      // Rockets
+      for (let i = 0; i < 20; i++) {
+        const rocket = document.createElement("div");
+        rocket.className = "rocket";
+        rocket.textContent = "🚀";
+        rocket.style.left = Math.random() * window.innerWidth + "px";
+        document.body.appendChild(rocket);
+        setTimeout(() => rocket.remove(), 1800);
+      }
+
+      // Fireworks
+      for (let i = 0; i < 30; i++) {
+        setTimeout(() => {
+          const firework = document.createElement("div");
+          firework.className = "firework";
+          firework.textContent = "🎆";
+          firework.style.left = Math.random() * window.innerWidth + "px";
+          firework.style.top = Math.random() * window.innerHeight + "px";
+          document.body.appendChild(firework);
+          setTimeout(() => firework.remove(), 1600);
+        }, i * 120);
+      }
+
+      // Kisses rain 💋
+      for (let i = 0; i < 50; i++) {
+        setTimeout(() => {
+          const kiss = document.createElement("div");
+          kiss.className = "kiss";
+          kiss.textContent = "💋";
+          kiss.style.left = Math.random() * window.innerWidth + "px";
+          kiss.style.fontSize = (24 + Math.random() * 20) + "px";
+          document.body.appendChild(kiss);
+          setTimeout(() => kiss.remove(), 4000);
+        }, i * 120);
+      }
+    });
+  </script>
+
+</body>
+</html>
